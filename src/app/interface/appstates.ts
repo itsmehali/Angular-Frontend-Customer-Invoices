@@ -1,4 +1,6 @@
 import { DataState } from '../enum/datastate.enum';
+import { Role } from './Role';
+import { Events } from './event';
 import { User } from './user';
 
 export interface LoginState {
@@ -21,7 +23,9 @@ export interface CustomHttpResponse<T> {
 }
 
 export interface Profile {
-  user?: User;
-  access_token: string;
-  refresh_token: string;
+  user: User;
+  events?: Events[];
+  roles?: Role[];
+  access_token?: string;
+  refresh_token?: string;
 }
