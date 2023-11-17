@@ -97,8 +97,8 @@
               style="min-height: 510px"
             >
               <h3 class="mb-4">Profile Settings</h3>
-              <form>
-                <input type="hidden" name="id" />
+              <form #profileForm="ngForm" (ngSubmit)="updateProfile(profileForm)">
+                <input type="hidden" name="id" [ngModel]="state?.appData?.data?.user?.id" />
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -107,6 +107,7 @@
                         type="text"
                         name="firstName"
                         [ngModel]="state?.appData?.data?.user?.firstName"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -118,6 +119,7 @@
                         type="text"
                         name="lastName"
                         [ngModel]="state?.appData?.data?.user?.lastName"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -129,6 +131,7 @@
                         type="text"
                         name="email"
                         [ngModel]="state?.appData?.data?.user?.email"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -140,6 +143,7 @@
                         type="text"
                         name="phone"
                         [ngModel]="state?.appData?.data?.user?.phone"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -151,6 +155,7 @@
                         type="text"
                         name="address"
                         [ngModel]="state?.appData?.data?.user?.address"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -162,6 +167,7 @@
                         type="text"
                         name="title"
                         [ngModel]="state?.appData?.data?.user?.title"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         class="form-control"
                       />
                     </div>
@@ -174,21 +180,27 @@
                         [textContent]="state?.appData?.data?.user?.bio"
                         class="form-control"
                         [ngModel]="state?.appData?.data?.user?.bio"
+                        [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
                         rows="4"
                       ></textarea>
                     </div>
                   </div>
                 </div>
                 <div>
-                  <button type="submit" class="btn btn-primary">
+                  <button
+                    [disabled]="state?.appData?.data?.user?.roleName === 'ROLE_USER' || (isLoading$ | async)"
+                    type="submit"
+                    class="btn btn-primary"
+                  >
                     <span
+                      *ngIf="isLoading$ | async"
                       class="spinner-border spinner-border-sm"
                       role="status"
                       aria-hidden="true"
                       style="margin-right: 5px"
                     ></span>
-                    <span>Loading...</span>
-                    <span>Update</span>
+                    <span *ngIf="isLoading$ | async">Loading...</span>
+                    <span *ngIf="!(isLoading$ | async)">Update</span>
                   </button>
                 </div>
               </form>
