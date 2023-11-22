@@ -75,16 +75,18 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img class="user-avatar-md rounded-circle"
+            <img class="user-avatar-md rounded-circle" [src]="user.imageUrl"
           /></a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownBlog">
             <li>
               <a class="dropdown-item" [routerLink]="['/profile']"
-                ><i style="padding-right: 8px" class="bi bi-person-circle"></i>
+                ><i style="padding-right: 8px" class="bi bi-person-circle"></i>{{ user.firstName }} {{ user.lastName }}
               </a>
             </li>
             <li style="cursor: pointer">
-              <a class="dropdown-item"><i style="padding-right: 8px" class="bi bi-box-arrow-in-right"></i>Logout</a>
+              <a class="dropdown-item" (click)="logOut()"
+                ><i style="padding-right: 8px" class="bi bi-box-arrow-in-right"></i>Logout</a
+              >
             </li>
           </ul>
         </li>

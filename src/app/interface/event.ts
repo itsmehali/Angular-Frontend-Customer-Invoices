@@ -5,6 +5,6 @@ export interface Events {
   type: EventType;
   description: string;
   device: string;
-  ipAdress: string;
+  ipAddress: string;
   createdAt: Date;
 }
