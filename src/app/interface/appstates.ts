@@ -1,5 +1,6 @@
 import { DataState } from '../enum/datastate.enum';
 import { Role } from './Role';
+import { Customer } from './customer';
 import { Events } from './event';
 import { User } from './user';
 
@@ -28,4 +29,13 @@ export interface Profile {
   roles?: Role[];
   access_token?: string;
   refresh_token?: string;
+}
+
+export interface Page {
+  content: Customer[];
+  totalPages: number;
+  totalElements: number;
+  numberOfElements: number;
+  size: number;
+  number: number;
 }

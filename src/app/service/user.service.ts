@@ -31,16 +31,12 @@ export class UserService {
 
   profile$ = () =>
     <Observable<CustomHttpResponse<Profile>>>(
-      this.http
-        .get<CustomHttpResponse<Profile>>(`${this.server}/user/profile`)
-        .pipe(tap(console.log), catchError(this.handleError))
+      this.http.get<CustomHttpResponse<Profile>>(`${this.server}/user/profile`).pipe(tap(console.log), catchError(this.handleError))
     );
 
   update$ = (user: User) =>
     <Observable<CustomHttpResponse<Profile>>>(
-      this.http
-        .patch<CustomHttpResponse<Profile>>(`${this.server}/user/update`, user)
-        .pipe(tap(console.log), catchError(this.handleError))
+      this.http.patch<CustomHttpResponse<Profile>>(`${this.server}/user/update`, user).pipe(tap(console.log), catchError(this.handleError))
     );
 
   refreshToken$ = () => <Observable<CustomHttpResponse<Profile>>>this.http
@@ -81,9 +77,7 @@ export class UserService {
 
   toggleMfa$ = () =>
     <Observable<CustomHttpResponse<Profile>>>(
-      this.http
-        .patch<CustomHttpResponse<Profile>>(`${this.server}/user/togglemfa`, {})
-        .pipe(tap(console.log), catchError(this.handleError))
+      this.http.patch<CustomHttpResponse<Profile>>(`${this.server}/user/togglemfa`, {}).pipe(tap(console.log), catchError(this.handleError))
     );
 
   updateImage$ = (formData: FormData) =>
@@ -99,8 +93,7 @@ export class UserService {
   }
 
   isAuthenticated = (): boolean =>
-    this.jwtHelper.decodeToken<string>(localStorage.getItem(Key.TOKEN)) &&
-    !this.jwtHelper.isTokenExpired(localStorage.getItem(Key.TOKEN))
+    this.jwtHelper.decodeToken<string>(localStorage.getItem(Key.TOKEN)) && !this.jwtHelper.isTokenExpired(localStorage.getItem(Key.TOKEN))
       ? true
       : false;
 
