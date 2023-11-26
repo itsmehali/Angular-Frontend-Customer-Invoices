@@ -15,6 +15,11 @@ import { CustomersComponent } from './component/customers/customers.component';
 import { NavbarComponent } from './component/navbar/navbar.component';
 import { StatsComponent } from './component/stats/stats.component';
 import { TokenInterceptor } from './interceptor/token.interceptor';
+import { NewcustomerComponent } from './component/newcustomer/newcustomer.component';
+import { NewinvoiceComponent } from './component/newinvoice/newinvoice.component';
+import { InvoicesComponent } from './component/invoices/invoices.component';
+import { CustomerComponent } from './component/customer/customer.component';
+import { InvoiceComponent } from './component/invoice/invoice.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +33,11 @@ import { TokenInterceptor } from './interceptor/token.interceptor';
     CustomersComponent,
     NavbarComponent,
     StatsComponent,
+    NewcustomerComponent,
+    NewinvoiceComponent,
+    InvoicesComponent,
+    CustomerComponent,
+    InvoiceComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],

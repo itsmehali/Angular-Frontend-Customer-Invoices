@@ -1,3 +1,6 @@
+import { Customer } from './customer';
+import { Stats } from './stats';
+
 export interface User {
   id: number;
   firstName: string;
