@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, catchError, map, of, startWith } from 'rxjs';
 import { DataState } from 'src/app/enum/datastate.enum';
 import { CustomHttpResponse, Page, Profile } from 'src/app/interface/appstates';
@@ -6,7 +7,6 @@ import { Customer } from 'src/app/interface/customer';
 import { State } from 'src/app/interface/state';
 import { User } from 'src/app/interface/user';
 import { CustomerService } from 'src/app/service/customer.service';
-import { UserService } from 'src/app/service/user.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +26,7 @@ export class HomeComponent implements OnInit {
   readonly DataState = DataState;
 
   constructor(
-    private userService: UserService,
+    private router: Router,
     private customerService: CustomerService,
   ) {}
 
@@ -76,5 +76,7 @@ export class HomeComponent implements OnInit {
     this.goToPage(direction === 'forward' ? this.currentPageSubject.value + 1 : this.currentPageSubject.value - 1);
   }
 
-  selectCustomer(customer: Customer): void {}
+  selectCustomer(customer: Customer): void {
+    this.router.navigate([`/customers/${customer.id}`]);
+  }
 }
