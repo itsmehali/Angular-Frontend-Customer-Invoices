@@ -5,7 +5,6 @@ import { Observable, BehaviorSubject, map, startWith, catchError, of, switchMap 
 import { DataState } from 'src/app/enum/datastate.enum';
 import { CustomHttpResponse, CustomerState, Page } from 'src/app/interface/appstates';
 import { State } from 'src/app/interface/state';
-import { User } from 'src/app/interface/user';
 import { CustomerService } from 'src/app/service/customer.service';
 
 @Component({
@@ -52,26 +51,21 @@ export class CustomerComponent implements OnInit {
 
   updateCustomer(customerForm: NgForm): void {
     this.isLoadingSubject.next(true);
-    this.customerState$ = this.customerState$ = this.customerService.update$(customerForm.value).pipe(
+    this.customerState$ = this.customerService.update$(customerForm.value).pipe(
       map(response => {
         console.log(response);
         this.dataSubject.next({
           ...response,
           data: { ...response.data, customer: { ...response.data.customer, invoices: this.dataSubject.value.data.customer.invoices } },
         });
+
         this.isLoadingSubject.next(false);
-        return {
-          dataState: DataState.LOADED,
-          appData: this.dataSubject.value,
-        };
+        return { dataState: DataState.LOADED, appData: this.dataSubject.value };
       }),
       startWith({ dataState: DataState.LOADED, appData: this.dataSubject.value }),
       catchError((error: string) => {
         this.isLoadingSubject.next(false);
-        return of({
-          dataState: DataState.ERROR,
-          error,
-        });
+        return of({ dataState: DataState.ERROR, error });
       }),
     );
   }
