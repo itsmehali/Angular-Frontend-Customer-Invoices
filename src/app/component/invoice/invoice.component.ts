@@ -9,6 +9,7 @@ import { Invoice } from 'src/app/interface/invoice';
 import { State } from 'src/app/interface/state';
 import { User } from 'src/app/interface/user';
 import { CustomerService } from 'src/app/service/customer.service';
+import { jsPDF as pdf } from 'jspdf';
 
 const INVOICE_ID = 'id';
 
@@ -51,5 +52,11 @@ export class InvoiceComponent implements OnInit {
         ));
       }),
     );
+  }
+
+  exportAsPDF(): void {
+    const filename = `invoice-${this.dataSubject.value.data['invoice'].invoiceNumber}.pdf`;
+    const doc = new pdf();
+    doc.html(document.getElementById('invoice'), { margin: 5, windowWidth: 1000, width: 200, callback: invoice => invoice.save(filename) });
   }
 }
