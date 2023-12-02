@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEvent } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { CustomHttpResponse, CustomerState, Page, Profile } from '../interface/appstates';
@@ -74,6 +74,13 @@ export class CustomerService {
     <Observable<CustomHttpResponse<Customer & Invoice & User>>>(
       this.http
         .get<CustomHttpResponse<Customer & Invoice & User>>(`${this.server}/customer/invoice/get/${invoiceId}`)
+        .pipe(tap(console.log), catchError(this.handleError))
+    );
+
+  downloadReport$ = () =>
+    <Observable<HttpEvent<Blob>>>(
+      this.http
+        .get(`${this.server}/customer/download/report`, { reportProgress: true, observe: 'events', responseType: 'blob' })
         .pipe(tap(console.log), catchError(this.handleError))
     );
 
