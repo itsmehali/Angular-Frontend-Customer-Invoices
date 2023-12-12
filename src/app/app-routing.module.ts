@@ -14,6 +14,8 @@ import { NewinvoiceComponent } from './component/newinvoice/newinvoice.component
 import { InvoicesComponent } from './component/invoices/invoices.component';
 import { CustomerComponent } from './component/customer/customer.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
+import { ProductsComponent } from './component/products/products.component';
+import { NewproductComponent } from './component/newproduct/newproduct.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +31,8 @@ const routes: Routes = [
   { path: 'invoices', component: InvoicesComponent, canActivate: [AuthenticationGuard] },
   { path: 'customers/:id', component: CustomerComponent, canActivate: [AuthenticationGuard] },
   { path: 'invoices/:id/:invoiceNumber', component: InvoiceComponent, canActivate: [AuthenticationGuard] },
+  { path: 'products', component: ProductsComponent, canActivate: [AuthenticationGuard] },
+  { path: 'products/new', component: NewproductComponent, canActivate: [AuthenticationGuard] },
   { path: '', component: HomeComponent, canActivate: [AuthenticationGuard] },
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: '**', component: HomeComponent },

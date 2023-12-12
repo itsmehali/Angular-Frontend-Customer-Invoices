@@ -22,6 +22,8 @@ import { CustomerComponent } from './component/customer/customer.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ExtractArrayValue } from 'src/pipes/extractvalue.pipe';
 import { CacheInterceptor } from './interceptor/cache.interceptor';
+import { ProductsComponent } from './component/products/products.component';
+import { NewproductComponent } from './component/newproduct/newproduct.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,8 @@ import { CacheInterceptor } from './interceptor/cache.interceptor';
     InvoicesComponent,
     CustomerComponent,
     InvoiceComponent,
+    ProductsComponent,
+    NewproductComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
   providers: [

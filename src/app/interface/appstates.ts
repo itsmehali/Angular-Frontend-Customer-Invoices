@@ -1,7 +1,9 @@
 import { DataState } from '../enum/datastate.enum';
 import { Role } from './Role';
+import { Category } from './category';
 import { Customer } from './customer';
 import { Events } from './event';
+import { Product } from './product';
 import { User } from './user';
 
 export interface LoginState {
@@ -43,6 +45,12 @@ export interface Page<T> {
 export interface CustomerState {
   user: User;
   customer: Customer;
+}
+
+export interface ProductState {
+  user: User;
+  product: Product;
+  category: Category;
 }
 
 export interface RegisterState {

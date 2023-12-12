@@ -1,0 +1,96 @@
+<ng-container *ngIf="newProductState$ | async as state" [ngSwitch]="state.dataState">
+  <ng-container *ngSwitchCase="DataState.LOADED">
+    <app-navbar [user]="state?.appData?.data?.user"></app-navbar>
+    <section>
+      <div class="container">
+        <nav aria-label="breadcrumb" style="margin-top: 8px">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a [routerLink]="['/']">Home</a>
+            </li>
+            <li class="breadcrumb-item"><a [routerLink]="['/product']">Products</a></li>
+            <li class="breadcrumb-item active" aria-current="page">New</li>
+          </ol>
+        </nav>
+        <div class="row justify-content-center">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="text-center">
+                  <h2><i style="margin-right: 5px" class="bi bi-person-plus-fill"></i> New Product</h2>
+                </div>
+                <div *ngIf="state.error" class="alert alert-danger bg-danger text-light border-0 alert-dismissible fade show" role="alert">
+                  {{ state.error }}
+                  <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+
+                <form #newProductForm="ngForm" (ngSubmit)="createProduct(newProductForm)">
+                  <div class="row">
+                    <div class="col-md-6" style="margin-bottom: 15px">
+                      <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" ngModel name="productName" class="form-control" required />
+                      </div>
+                    </div>
+                    <div class="col-md-6" style="margin-bottom: 15px">
+                      <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" ngModel name="description" class="form-control" required />
+                      </div>
+                    </div>
+                    <div class="col-md-6" style="margin-bottom: 15px">
+                      <div class="form-group">
+                        <label for="address">Country</label>
+                        <input type="text" ngModel name="country" class="form-control" required />
+                      </div>
+                    </div>
+                  </div>
+                  <div>
+                    <button
+                      [disabled]="
+                        state.dataState === DataState.LOADING || newProductForm.invalid || newProductForm.pristine || (isLoading$ | async)
+                      "
+                      type="submit"
+                      class="btn btn-primary mt-5"
+                    >
+                      <span
+                        *ngIf="isLoading$ | async"
+                        class="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                        style="margin-right: 5px"
+                      ></span>
+                      <span *ngIf="isLoading$ | async">Saving...</span>
+                      <span *ngIf="!(isLoading$ | async)">Save Customer</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <nav *ngIf="state?.appData?.data?.page.content.length > 0" aria-label="Page navigation example">
+            <ul class="pagination justify-content-end">
+              <li [ngClass]="0 == (currentPage$ | async) ? 'disabled' : ''" class="page-item pointer">
+                <a (click)="goToNextOrPreviousPage('backward', searchForm.value.name)" class="page-link">&laquo; Prev</a>
+              </li>
+              <li
+                *ngFor="let pageNumber of state?.appData?.data?.page.totalPages | ExtractArrayValue: 'number'; let i = index"
+                class="page-item pointer"
+              >
+                <a (click)="goToPage(i, searchForm.value.name)" [ngClass]="i == (currentPage$ | async) ? 'active' : ''" class="page-link">{{
+                  i + 1
+                }}</a>
+              </li>
+              <li
+                [ngClass]="state?.appData?.data?.page.totalPages - 1 == (currentPage$ | async) ? 'disabled' : ''"
+                class="page-item pointer"
+              >
+                <a (click)="goToNextOrPreviousPage('forward', searchForm.value.name)" class="page-link">Next &raquo;</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </section>
+  </ng-container>
+</ng-container>
